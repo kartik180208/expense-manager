@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Student Expense Manager</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="nav"><div><span class="logo">💰 Student<b>Expense</b></span><nav><a href="#add">Add</a><a href="#chart">Chart</a><a href="#billq">Bills</a><a href="#expenses">Expenses</a><a href="#ds">Data structures</a></nav></div></header>
+<main>
+<section class="hero"><h1>Track every rupee, the data structures way.</h1>
+<p>A student expense manager built with a linked list, stack, queue and hash table. Add spending, undo mistakes, and see where your money goes.</p>
+<a class="btn" href="#add">Add expense</a><button class="btn o" id="demo">Load sample data</button></section>
+<div class="stats"><div class="stat"><small>💸 Total spent</small><b id="sTotal">₹0.00</b></div><div class="stat"><small>📅 This month</small><b id="sMonth">₹0.00</b></div><div class="stat"><small>🧾 Expenses</small><b id="sCount">0</b></div><div class="stat"><small>🏆 Top category</small><b id="sTop">—</b></div></div>
+
+<section class="card" style="margin-top:14px">
+  <h2>Monthly budget <span class="tag">This month</span></h2>
+  <div class="row"><input id="bud" type="number" min="1" step="any" placeholder="Set budget (₹)"><button id="setBud">Set</button></div>
+  <div class="bar"><i id="barFill"></i></div><div id="budTxt" class="mut">No budget set.</div>
+</section>
+
+<div class="grid">
+  <section class="card">
+    <h2 id="add">Add expense <span class="tag">Linked list</span></h2>
+    <form id="f"><input id="date" type="date" required><input id="cat" placeholder="Category (Food, Books, Travel…)" maxlength="30" required>
+    <input id="desc" placeholder="Description" maxlength="50" required><input id="amt" type="number" min="0.01" step="any" placeholder="Amount (₹)" required>
+    <button type="submit">Add expense</button></form>
+  </section>
+
+  <section class="card">
+    <h2 id="chart">Category pie chart <span class="tag">Hash table</span></h2>
+    <div class="pie" id="pie" role="img" aria-label="Pie chart of expenses by category"></div>
+    <ul id="legend"></ul>
+  </section>
+
+  <section class="card">
+    <h2 id="billq">Pending bills <span class="tag">Queue (FIFO)</span></h2>
+    <div class="row" style="margin-bottom:8px"><input id="bt" placeholder="Bill title"><input id="bd" type="date"><input id="ba" type="number" min="0.01" step="any" placeholder="Amount"></div>
+    <div class="row" style="margin-bottom:10px"><button id="addBill">Add bill</button><button id="payBill" class="sec">Pay next</button></div>
+    <ul id="bills"></ul>
+  </section>
+
+  <section class="card wide">
+    <h2 id="expenses">All expenses <span class="tag">Linked list + Stack (undo)</span></h2>
+    <div class="row" style="margin-bottom:10px">
+      <input id="q" placeholder="Search category or description"><select id="sort" style="padding:9px;border-radius:9px;border:1px solid var(--bd);background:var(--bg)">
+      <option value="none">Order added</option><option value="amt">Amount (high to low)</option><option value="date">Date (oldest first)</option></select>
+      <button id="undoBtn" class="sec">↶ Undo</button>
+    </div>
+    <div class="tw"><table><thead><tr><th>ID</th><th>Date</th><th>Category</th><th>Description</th><th class="r">Amount</th><th></th></tr></thead>
+    <tbody id="rows"></tbody><tfoot><tr><th colspan="4">Total</th><th class="r" id="total"></th><th></th></tr></tfoot></table></div>
+  </section>
+</div>
+<section class="card" style="margin-top:14px"><h2 id="ds">Data structures used <span class="tag">How it works</span></h2>
+<div class="dsg">
+<div><b>Linked list</b><p>Stores every expense as a node. New expenses go at the tail, and delete works by ID.</p><small>Add O(n) · Delete O(n) · Traverse O(n)</small></div>
+<div><b>Stack</b><p>Remembers each add and delete, so Undo reverses the latest action first (LIFO).</p><small>Push O(1) · Pop O(1)</small></div>
+<div><b>Queue</b><p>Pending bills wait in order, and Pay next serves the oldest bill first (FIFO).</p><small>Enqueue O(1) · Dequeue O(1)</small></div>
+<div><b>Hash table</b><p>Groups spending by category using chaining, and feeds the pie chart.</p><small>Insert O(1) avg · Lookup O(1) avg</small></div>
+<div><b>Sorting and search</b><p>Sort by amount or date, and search by scanning the list for a keyword.</p><small>Sort O(n log n) · Search O(n)</small></div>
+</div></section>
+<footer>Student Expense Manager · Data Structures PBL · Linked list, Stack, Queue, Hash table</footer>
+<div id="toast" role="status"></div>
+</main>
+<script src="script.js"></script></body></html>
